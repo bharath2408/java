@@ -102,3 +102,68 @@ public class Tables {
 // Sum of 3 Tables : 75
 
 ```
+
+
+- Multi Threading using synchronized method
+
+``` java
+package com;
+
+public class Example {
+
+	synchronized void printTable(int n)  {// synchronized method
+		for (int i = 1; i <= 5; i++) {
+			System.out.println(n * i);
+			try {
+				Thread.sleep(400);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+
+	}
+}
+
+class MyThread1 extends Thread {
+	Example e;
+
+	MyThread1(Example e) {
+		this.e = e;
+	}
+
+	public void run() {
+		e.printTable(5);
+	}
+
+}
+
+class MyThread2 extends Thread {
+	Example e;
+
+	MyThread2(Example e) {
+		this.e = e;
+	}
+
+	public void run() {
+		e.printTable(100);
+	}
+}
+
+// TestClass
+
+package com;
+
+public class TestSynchronization {
+
+	public static void main(String args[]) {
+		Example obj = new Example();// only one object
+		MyThread1 e1 = new MyThread1(obj);
+		MyThread2 e2 = new MyThread2(obj);
+		e1.start();
+		e2.start();
+	}
+
+}
+
+
+```
